@@ -1,0 +1,17 @@
+{
+    "deploy": {
+      "production": {
+        "key": "./ssh/BuildTrack-aws-private.pem",
+        "user": "ec2-user",
+        "host": ["35.154.116.89"],
+        "ssh_options": "StrictHostKeyChecking=no",
+        "ref": "origin/master",
+        "repo": "git@github.com:zeeshan4/service-deployment.git",
+        "path": "/usr/share/nginx/html/services",
+        "pre-setup": "cd /usr/share/nginx/html && sudo mkdir -p services && sudo chmod 777 services",
+        "post-setup": "cd otpService && npm install && cd .. && cd navigation-menu-management-service && npm install",
+        "pre-deploy-local": "",
+        "post-deploy": "pm2 startOrRestart pm2-manager/ecosystem.config.js"
+      }
+    }
+  }

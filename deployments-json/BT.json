@@ -1,0 +1,17 @@
+{
+    "deploy": {
+      "production": {
+        "key": "./ssh/BuildTrack-aws-private.pem",
+        "user": "ec2-user",
+        "host": ["35.154.116.89"],
+        "ssh_options": "StrictHostKeyChecking=no",
+        "ref": "origin/master",
+        "repo": "git@github.com:buildtrack/BT.git",
+        "path": "/usr/share/nginx/html/BT",
+        "pre-setup": "cd /usr/share/nginx/html/ && sudo mkdir -p BT && sudo chmod 777 BT",
+        "post-setup": "ls -la",
+        "pre-deploy-local": "echo 'This is a local executed command'",
+        "post-deploy": "echo 'Deployment Completed !!!'"
+      }
+    }
+  }
