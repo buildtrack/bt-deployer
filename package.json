@@ -1,0 +1,20 @@
+{
+  "name": "bt-deployer",
+  "version": "1.0.0",
+  "description": "BuildTrack Deployment Tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Zeeshan M - BuildTrack",
+  "license": "ISC",
+  "bin": {
+    "btdeploy": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "inquirer": "^8.0.0",
+    "shelljs": "^0.8.4"
+  }
+}
