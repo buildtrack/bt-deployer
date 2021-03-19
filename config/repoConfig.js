@@ -9,7 +9,7 @@ const steps = [
     {
       type: "list",
       name: "type",
-      message: "Select Setup or Deployment",
+      message: "Select Setup / Deployment / Revert",
       choices: ["setup", "deployment","revert"],
       filter: function(val) {
         return val;
@@ -33,6 +33,10 @@ const steps = [
             return val;
         }
     }
-  ];
+];
 
-module.exports = {repoConfig, steps};
+const pm2 = {
+    DEPLOY : "pm2 deploy"
+}
+
+module.exports = {repoConfig, steps, pm2};
