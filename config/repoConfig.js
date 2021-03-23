@@ -9,7 +9,7 @@ const steps = [
     {
       type: "list",
       name: "type",
-      message: "Select Setup / Deployment / Revert",
+      message: "Select Setup / Deployment / Revert > ",
       choices: ["setup", "deployment","revert"],
       filter: function(val) {
         return val;
@@ -18,7 +18,7 @@ const steps = [
     {
       type: "list",
       name: "REPO",
-      message: "Select repository to deploy",
+      message: "Select repository to deploy > ",
       choices: ["buildtrack-app", "BT", "buildtrack-microservices", "AS"],
       filter: function(val) {
         return val;
@@ -27,7 +27,7 @@ const steps = [
     {
         type: "list",
         name: "ENVIRONMENT",
-        message: "Select Environment",
+        message: "Select Environment > ",
         choices: ["production", "development"],
         filter: function(val) {
             return val;
