@@ -54,8 +54,8 @@ const runDeployment = async () => {
       let status;
 
       // execute the deployment
-      if(type != "setup")
-        status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT}`);
+      if(type == "deployment")
+        status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} --force`);
       else
         status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type}`);
 
