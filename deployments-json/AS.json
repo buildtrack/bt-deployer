@@ -1,0 +1,17 @@
+{
+    "deploy": {
+      "production": {
+        "key": "./ssh/BuildTrack-aws-private.pem",
+        "user": "ec2-user",
+        "host": ["3.6.23.206"],
+        "ssh_options": "StrictHostKeyChecking=no",
+        "ref": "origin/config_changes",
+        "repo": "git@github.com:buildtrack/AS.git",
+        "path": "/var/www/html/php56/bt/auth",
+        "pre-setup": "cd /var/www/html/php56/ && sudo mkdir -p bt && cd bt && sudo mkdir -p auth && sudo chmod 777 auth",
+        "post-setup": "",
+        "pre-deploy-local": "scp -i ./ssh/BuildTrack-aws-private.pem ./server-configs/auth/auth.settings.production.php ec2-user@3.6.23.206:/var/www/html/php56/bt/auth/source/settings/settings.php",
+        "post-deploy": "echo 'Deployment Completed !!!'"
+      }
+    }
+  }
