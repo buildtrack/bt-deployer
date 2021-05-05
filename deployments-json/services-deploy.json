@@ -10,8 +10,8 @@
         "path": "/usr/share/nginx/html/services",
         "pre-setup": "cd /usr/share/nginx/html && sudo mkdir -p services && sudo chmod 777 services",
         "post-setup": "cd otpService && npm install && cd .. && cd navigation-menu-management-service && npm install",
-        "pre-deploy-local": "",
-        "post-deploy": "pm2 startOrRestart pm2-manager/ecosystem.config.js"
+        "pre-deploy-local": "scp -i ./ssh/BuildTrack-aws-private.pem ./server-configs/services/ecosystem.config.js ec2-user@35.154.116.89:/usr/share/nginx/html/services/source/ecosystem.config.js",
+        "post-deploy": "pm2 startOrRestart ecosystem.config.js"
       }
     }
   }

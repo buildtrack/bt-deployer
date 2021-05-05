@@ -3,14 +3,14 @@
       "production": {
         "key": "./ssh/BuildTrack-aws-private.pem",
         "user": "ec2-user",
-        "host": ["35.154.116.89"],
+        "host": ["3.6.23.206"],
         "ssh_options": "StrictHostKeyChecking=no",
-        "ref": "origin/master",
+        "ref": "origin/config_changes",
         "repo": "git@github.com:buildtrack/BT.git",
-        "path": "/usr/share/nginx/html/BT",
-        "pre-setup": "cd /usr/share/nginx/html/ && sudo mkdir -p BT && sudo chmod 777 BT",
+        "path": "/var/www/html/php56/bt/admin",
+        "pre-setup": "cd /var/www/html/php56/ && sudo mkdir -p bt && cd bt && sudo mkdir -p admin && sudo chmod 777 admin",
         "post-setup": "ls -la",
-        "pre-deploy-local": "echo 'This is a local executed command'",
+        "pre-deploy-local": "scp -i ./ssh/BuildTrack-aws-private.pem ./server-configs/admin/admin.settings.production.php ec2-user@3.6.23.206:/var/www/html/php56/bt/admin/source/application/settings/settings.php",
         "post-deploy": "echo 'Deployment Completed !!!'"
       }
     }
