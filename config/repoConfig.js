@@ -2,6 +2,7 @@ const folder = "deployments-json";
 const repoConfig = {
     "buildtrack-app" : `./${folder}/btapp-deploy.json`,
     "BT" : `./${folder}/BT.json`,
+    "AS" : `./${folder}/AS.json`,
     "buildtrack-microservices" : `./${folder}/services-deploy.json`,    
 };
 
@@ -10,7 +11,7 @@ const steps = [
       type: "list",
       name: "type",
       message: "Select Setup / Deployment / Revert > ",
-      choices: ["setup", "deployment","revert"],
+      choices: ["setup & deployment", "update","revert"],
       filter: function(val) {
         return val;
       }
@@ -19,7 +20,7 @@ const steps = [
       type: "list",
       name: "REPO",
       message: "Select repository to deploy > ",
-      choices: ["buildtrack-app", "BT", "buildtrack-microservices", "AS"],
+      choices: ["AS", "BT", "buildtrack-app", "buildtrack-microservices"],
       filter: function(val) {
         return val;
       }

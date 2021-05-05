@@ -18,7 +18,7 @@ const initConfig = () => {
 };
 
 // execute any shell command
-const deploy = (command) => {
+const deploy = async(command) => {
   return shell.exec(command).code;
 };
 
@@ -35,7 +35,7 @@ const log = (function () {
 
   return {
       add: function (msg) { log += msg + "\n"; },
-      show: function () { console.log(log); log = ""; }
+      show: function (msg) { console.log(msg); log = ""; }
   }
 })();
 
@@ -49,17 +49,21 @@ const runDeployment = async () => {
 
     // select config as selected options
     const configFile = repoConfig[REPO];
-    log.show(chalk.white.bgCyan.bold(`>> Starting deployment for ${REPO}`));
+    log.show(chalk.white.bgCyan.bold(`>> Starting deployment for "${REPO}"`));
     if(configFile){
       let status;
 
       // execute the deployment
-      if(type == "deployment")
+      
+      console.log(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type}`);
+      if(type == "setup & deployment"){
+        status = await deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} setup`);
         status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} --force`);
+      }
       else
-        status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type}`);
+        status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type} --force`);
 
-      success(`Deployment Completed - ${REPO} (${ENVIRONMENT})`);
+      success(`>> Deployment Completed "${REPO} (${ENVIRONMENT})"`);
     }
     else
       log.show(chalk.red.bold(`No configuration found !!!`));
