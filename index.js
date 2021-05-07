@@ -2,7 +2,11 @@
 
 const inquirer = require("inquirer");
 const chalk = require("chalk");
-const {repoConfig,steps,pm2} = require("./config/repoConfig");
+const {
+  repoConfig,
+  steps,
+  pm2
+} = require("./config/repoConfig");
 const shell = require("shelljs");
 
 // deployer init event
@@ -18,7 +22,7 @@ const initConfig = () => {
 };
 
 // execute any shell command
-const deploy = async(command) => {
+const deploy = async (command) => {
   return shell.exec(command).code;
 };
 
@@ -34,39 +38,43 @@ const log = (function () {
   let log = "";
 
   return {
-      add: function (msg) { log += msg + "\n"; },
-      show: function (msg) { console.log(msg); log = ""; }
+    add: function (msg) {
+      log += msg + "\n";
+    },
+    show: function (msg) {
+      console.log(msg);
+      log = "";
+    }
   }
 })();
 
 const runDeployment = async () => {
-    // show script introduction
-    init();
+  // show script introduction
+  init();
 
-    // display deployment options
-    const selections = await initConfig();
-    const { type, REPO, ENVIRONMENT } = selections;
+  // display deployment options
+  const selections = await initConfig();
+  const { type, REPO, ENVIRONMENT } = selections;
 
+  REPO.map(async(selectedrepo) => {
     // select config as selected options
-    const configFile = repoConfig[REPO];
-    log.show(chalk.white.bgCyan.bold(`>> Starting deployment for "${REPO}"`));
-    if(configFile){
+    const configFile = repoConfig[selectedrepo];
+    log.show(chalk.white.bgCyan.bold(`>> Starting deployment for "${selectedrepo}"`));
+    if (configFile) {
       let status;
-
       // execute the deployment
-      
       console.log(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type}`);
-      if(type == "setup & deployment"){
+      if (type == "setup & deployment") {
         status = await deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} setup`);
         status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} --force`);
-      }
+      } 
       else
         status = deploy(`${pm2.DEPLOY} ${configFile} ${ENVIRONMENT} ${type} --force`);
 
-      success(`>> Deployment Completed "${REPO} (${ENVIRONMENT})"`);
-    }
-    else
+      success(`>> Deployment Completed "${selectedrepo} (${ENVIRONMENT})"`);
+    } else
       log.show(chalk.red.bold(`No configuration found !!!`));
+  });
 };
 
 // start the deployment process

@@ -22,8 +22,8 @@
         "repo": "git@github.com:buildtrack/buildtrack-app.git",
         "path": "/var/www/html/php56/bt/app",
         "pre-setup": "cd /var/www/html/php56/ && sudo mkdir -p bt && cd bt && sudo mkdir -p app && sudo chmod 777 app",
-        "post-setup": "ls -la",
-        "pre-deploy-local": "echo 'This is a local executed command'",
+        "post-setup": "",
+        "pre-deploy-local": "scp -i ./ssh/BuildTrack-aws-private.pem ./server-configs/buildtrack-app/appConfig.js ec2-user@3.6.23.206:/var/www/html/php56/bt/app/source/app-src/js/appConfig.js",
         "post-deploy": "npm install && npm run-script build && echo 'Deployment Completed !!!'"
       }
     }

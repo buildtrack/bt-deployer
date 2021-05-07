@@ -17,7 +17,7 @@ const steps = [
       }
     },
     {
-      type: "list",
+      type: "checkbox",
       name: "REPO",
       message: "Select repository to deploy > ",
       choices: ["AS", "BT", "buildtrack-app", "buildtrack-microservices"],
